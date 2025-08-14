@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" sizes="192x192">
+<meta name="theme-color" content="#1a1f3a">
+<title>Wisdom of Solomon: Global Mediator</title>
+<meta name="description" content="Biblical-historical, reflective web app. Made by Justin — Depths to Heights.">
+<link rel="canonical" href="https://USERNAME.github.io/REPO-NAME/">
+<meta property="og:title" content="Wisdom of Solomon: Global Mediator">
+<meta property="og:description" content="Reflective, Bible-grounded learning experience. Install on phone/desktop.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://USERNAME.github.io/REPO-NAME/">
+<meta property="og:image" content="https://USERNAME.github.io/REPO-NAME/icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Georgia', serif;
+  background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
+  color: #e8e4d9;
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.6;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #d4af37;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+.subtitle {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 25px;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+.wisdom-meter {
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.wisdom-bar {
+  width: 100%;
+  height: 25px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.wisdom-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37 0%, #f4e4a1 100%);
+  transition: width 0.6s ease;
+  border-radius: 12px;
+}
+.conflict-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212,175,55,0.3);
+}
+.conflict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.conflict-title {
+  font-size: 1.4rem;
+  color: #d4af37;
+}
+.severity-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.severity-high {
+  background: rgba(220,53,69,0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(220,53,69,0.4);
+}
+.severity-medium {
+  background: rgba(255,193,7,0.2);
+  color: #ffc107;
+  border: 1px solid rgba(255,193,7,0.4);
+}
+.severity-low {
+  background: rgba(40,167,69,0.2);
+  color: #28a745;
+  border: 1px solid rgba(40,167,69,0.4);
+}
+.parties-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+.party-card {
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 3px solid #d4af37;
+}
+.party-name {
+  font-weight: bold;
+  color: #f4e4a1;
+  margin-bottom: 8px;
+}
+.party-position {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+.party-concerns {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #a8c5da;
+}
+.wisdom-principles {
+  background: rgba(212,175,55,0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+.principle-title {
+  font-weight: bold;
+  color: #d4af37;
+  margin-bottom: 10px;
+}
+.principle-list {
+  list-style: none;
+}
+.principle-item {
+  padding: 8px 0;
+  display: flex;
+  align-items: flex-start;
+}
+.principle-icon {
+  color: #d4af37;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+.mediation-options {
+  margin: 20px 0;
+}
+.option-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.3);
+  color: #e8e4d9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+}
+.option-btn:hover {
+  background: rgba(212,175,55,0.15);
+  transform: translateX(5px);
+  border-color: #d4af37;
+}
+.option-title {
+  font-weight: bold;
+  color: #f4e4a1;
+  margin-bottom: 5px;
+}
+.option-description {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.wisdom-tag {
+  display: inline-block;
+  background: rgba(212,175,55,0.2);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  color: #d4af37;
+}
+.outcome-panel {
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  display: none;
+}
+.outcome-title {
+  color: #d4af37;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+.outcome-impact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+.impact-stat {
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+.impact-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.impact-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f4e4a1;
+}
+.scripture-reflection {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+  text-align: center;
+  font-style: italic;
+}
+.scripture-text {
+  margin-bottom: 8px;
+}
+.scripture-ref {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: bold;
+}
+.global-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #d4af37;
+}
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.about-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(212,175,55,0.2);
+  border: 1px solid rgba(212,175,55,0.4);
+  color: #e8e4d9;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  background: #1a1f3a;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 500px;
+  margin: 50px auto;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+.close-modal {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #d4af37;
+}
+.progress-tracker {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+}
+.progress-title {
+  color: #d4af37;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.progress-items {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.progress-item {
+  background: rgba(255,255,255,0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 5px;
+  font-size: 0.85rem;
+}
+.completed {
+  background: rgba(212,175,55,0.2);
+  border: 1px solid rgba(212,175,55,0.4);
+}
+</style>
+</head>
+<body>
+
+<button class="about-btn" onclick="openModal()">About + Help</button>
+
+<div class="container">
+  <h1>Wisdom of Solomon: Global Mediator</h1>
+  <p class="subtitle">"Give your servant a discerning heart to govern your people and to distinguish between right and wrong" - 1 Kings 3:9</p>
+
+  <div class="wisdom-meter">
+    <div>Global Wisdom Score</div>
+    <div class="wisdom-bar">
+      <div class="wisdom-fill" id="wisdomFill" style="width: 45%"></div>
+    </div>
+    <div style="font-size: 0.9rem; opacity: 0.9;">Level <span id="wisdomLevel">3</span> Mediator</div>
+  </div>
+
+  <div class="conflict-card" id="conflictCard">
+    <div class="conflict-header">
+      <h2 class="conflict-title" id="conflictTitle">Loading Conflict...</h2>
+      <span class="severity-badge" id="severityBadge">HIGH</span>
+    </div>
+    
+    <p id="conflictDescription" style="margin-bottom: 20px;"></p>
+    
+    <div class="parties-section" id="partiesSection">
+      <div class="party-card">
+        <div class="party-name" id="party1Name">Party A</div>
+        <div class="party-position" id="party1Position"></div>
+        <div class="party-concerns" id="party1Concerns"></div>
+      </div>
+      <div class="party-card">
+        <div class="party-name" id="party2Name">Party B</div>
+        <div class="party-position" id="party2Position"></div>
+        <div class="party-concerns" id="party2Concerns"></div>
+      </div>
+    </div>
+
+    <div class="wisdom-principles">
+      <div class="principle-title">Solomon's Wisdom Principles</div>
+      <ul class="principle-list" id="principlesList">
+        <li class="principle-item">
+          <span class="principle-icon">⚖</span>
+          <span>Seek understanding before judgment</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mediation-options" id="mediationOptions">
+      <!-- Options will be inserted here -->
+    </div>
+  </div>
+
+  <div class="outcome-panel" id="outcomePanel">
+    <div class="outcome-title">Mediation Outcome</div>
+    <p id="outcomeText"></p>
+    <div class="outcome-impact">
+      <div class="impact-stat">
+        <div class="impact-label">Peace Score</div>
+        <div class="impact-value" id="peaceScore">+0</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-label">Justice Score</div>
+        <div class="impact-value" id="justiceScore">+0</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-label">Trust Built</div>
+        <div class="impact-value" id="trustScore">+0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scripture-reflection">
+    <div class="scripture-text">
+      "The wise in heart are called discerning, and gracious words promote instruction."
+    </div>
+    <div class="scripture-ref">Proverbs 16:21</div>
+  </div>
+
+  <div class="progress-tracker">
+    <div class="progress-title">Conflicts Resolved</div>
+    <div class="progress-items" id="progressItems">
+      <div class="progress-item">Water Rights</div>
+      <div class="progress-item">Border Dispute</div>
+      <div class="progress-item">Trade Agreement</div>
+    </div>
+  </div>
+
+  <div class="global-stats">
+    <div class="stat-card">
+      <div class="stat-number" id="conflictsResolved">7</div>
+      <div class="stat-label">Conflicts Resolved</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="livesImpacted">2.3M</div>
+      <div class="stat-label">Lives Impacted</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="treatiesSigned">4</div>
+      <div class="stat-label">Treaties Signed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="peaceIndex">78%</div>
+      <div class="stat-label">Peace Index</div>
+    </div>
+  </div>
+
+  <div role="note" style="margin:16px 0; font-size:0.95rem; opacity:0.95;">
+    <strong>Free to use.</strong>
+    If this encouraged you, feel free to
+    <a href="https://www.paypal.com/donate/?hosted_button_id=8GRE7B8C3TP2U" target="_blank" rel="noopener">buy me a coffee</a>.
+    <span>— Made by Justin — Depths to Heights</span>
+  </div>
+  <footer style="text-align:center;opacity:.9;margin:24px 0">
+    <strong>Made by Justin — Depths to Heights</strong> ·
+    <a href="mailto:depthstoheights@gmail.com">depthstoheights@gmail.com</a> ·
+    <a href="https://depthstoheights.org" target="_blank" rel="noopener">depthstoheights.org</a>
+  </footer>
+</div>
+
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2>About Wisdom of Solomon: Global Mediator</h2>
+    <p style="margin: 15px 0;">
+      Step into the role of a global mediator using King Solomon's timeless wisdom principles to resolve modern international conflicts.
+    </p>
+    <h3 style="margin-top: 20px; color: #d4af37;">Solomon's Approach</h3>
+    <ul style="margin: 15px 0; padding-left: 20px;">
+      <li>Listen to all parties with patience</li>
+      <li>Seek the root cause, not just symptoms</li>
+      <li>Consider long-term consequences</li>
+      <li>Value justice alongside mercy</li>
+      <li>Build bridges, not walls</li>
+    </ul>
+    <h3 style="margin-top: 20px; color: #d4af37;">Need Help?</h3>
+    <p style="margin: 15px 0;">
+      This app provides spiritual encouragement and education, not political or professional mediation advice.
+    </p>
+    <p style="background: rgba(255,100,100,0.1); padding: 10px; border-radius: 6px; margin: 15px 0;">
+      <strong>If you're in crisis (U.S.):</strong><br>
+      Call or text <strong>988</strong> for the Suicide & Crisis Lifeline
+    </p>
+    <p style="margin: 15px 0;">
+      Remember: True wisdom begins with humility and the desire to understand all perspectives.
+    </p>
+  </div>
+</div>
+
+<script>
+const conflicts = [
+  {
+    title: "Water Rights Dispute",
+    severity: "high",
+    description: "Two neighboring nations share a river that has been their lifeline for centuries. Climate change has reduced water flow by 40%, creating tension over usage rights.",
+    party1: {
+      name: "Upstream Nation",
+      position: "We need to dam the river for our growing population's drinking water and agriculture.",
+      concerns: "• 3 million citizens facing drought\n• Agricultural economy at risk\n• Historical usage rights"
+    },
+    party2: {
+      name: "Downstream Nation",
+      position: "The dam would devastate our ecosystems and leave our people without sufficient water.",
+      concerns: "• Wetlands supporting 500K people\n• Fishing industry collapse\n• International water laws"
+    },
+    principles: [
+      "⚖ Seek understanding before judgment",
+      "🤝 Find common ground in shared humanity",
+      "🌱 Consider future generations",
+      "💧 Recognize mutual dependence"
+    ],
+    options: [
+      {
+        title: "Shared Resource Management",
+        description: "Create a joint water authority with equal representation, using technology to optimize distribution based on real needs.",
+        wisdom: "Collaborative Stewardship",
+        peace: 85,
+        justice: 80,
+        trust: 90
+      },
+      {
+        title: "Seasonal Rotation Agreement",
+        description: "Alternate water priority based on agricultural seasons and establish minimum flow guarantees.",
+        wisdom: "Balanced Compromise",
+        peace: 70,
+        justice: 75,
+        trust: 65
+      },
+      {
+        title: "Economic Compensation Model",
+        description: "Allow the dam but require payment for downstream losses and investment in water technology.",
+        wisdom: "Pragmatic Justice",
+        peace: 60,
+        justice: 65,
+        trust: 50
+      },
+      {
+        title: "International Arbitration",
+        description: "Bring in UN mediators to impose a binding solution based on international law.",
+        wisdom: "External Authority",
+        peace: 55,
+        justice: 70,
+        trust: 40
+      }
+    ]
+  },
+  {
+    title: "Ethnic Minority Rights",
+    severity: "high",
+    description: "A ethnic minority group seeks autonomy after decades of marginalization, while the government fears national fragmentation.",
+    party1: {
+      name: "Minority Coalition",
+      position: "We deserve self-governance to preserve our language, culture, and way of life after systematic oppression.",
+      concerns: "• Language extinction threat\n• Economic discrimination\n• Political underrepresentation"
+    },
+    party2: {
+      name: "Central Government",
+      position: "Unity is essential for national stability, but we're willing to discuss cultural protections.",
+      concerns: "• National sovereignty\n• Economic integration\n• Security concerns"
+    },
+    principles: [
+      "👥 Honor dignity of all peoples",
+      "⚖ Balance unity with diversity",
+      "🕊️ Healing requires acknowledgment",
+      "🌍 Strength through inclusion"
+    ],
+    options: [
+      {
+        title: "Federal Autonomy Framework",
+        description: "Grant regional autonomy with cultural self-determination while maintaining national unity on defense and foreign policy.",
+        wisdom: "Unity in Diversity",
+        peace: 88,
+        justice: 85,
+        trust: 82
+      },
+      {
+        title: "Cultural Protection Laws",
+        description: "Implement strong legal protections for language and culture with guaranteed representation.",
+        wisdom: "Legal Safeguards",
+        peace: 72,
+        justice: 70,
+        trust: 68
+      },
+      {
+        title: "Truth and Reconciliation",
+        description: "Establish a commission to address past wrongs before negotiating future arrangements.",
+        wisdom: "Healing First",
+        peace: 65,
+        justice: 90,
+        trust: 75
+      },
+      {
+        title: "Gradual Integration",
+        description: "Slow reforms over 10 years with benchmarks for increasing autonomy.",
+        wisdom: "Patient Progress",
+        peace: 60,
+        justice: 55,
+        trust: 45
+      }
+    ]
+  },
+  {
+    title: "Trade Route Blockade",
+    severity: "medium",
+    description: "A landlocked nation's only trade route passes through a neighbor who has imposed heavy tariffs, claiming security costs.",
+    party1: {
+      name: "Landlocked State",
+      position: "These tariffs are economic warfare, violating our right to sea access under international law.",
+      concerns: "• 60% increase in trade costs\n• Economic isolation\n• Food security threatened"
+    },
+    party2: {
+      name: "Transit Country",
+      position: "We bear security costs and infrastructure wear from their trade. Fair compensation is justified.",
+      concerns: "• Road maintenance costs\n• Security expenses\n• Environmental impact"
+    },
+    principles: [
+      "🤝 Mutual benefit over zero-sum",
+      "⚖ Fair sharing of burdens",
+      "🌉 Build bridges, not barriers",
+      "💰 Economic interdependence"
+    ],
+    options: [
+      {
+        title: "Infrastructure Partnership",
+        description: "Joint investment in trade corridor improvements, sharing costs and benefits proportionally.",
+        wisdom: "Shared Investment",
+        peace: 82,
+        justice: 78,
+        trust: 85
+      },
+      {
+        title: "Regional Trade Agreement",
+        description: "Create a broader economic zone with multiple nations to dilute bilateral tensions.",
+        wisdom: "Wider Circle",
+        peace: 75,
+        justice: 72,
+        trust: 70
+      },
+      {
+        title: "Usage-Based Fee System",
+        description: "Implement transparent fees based on actual infrastructure use and maintenance needs.",
+        wisdom: "Fair Accounting",
+        peace: 68,
+        justice: 74,
+        trust: 60
+      },
+      {
+        title: "Alternative Route Development",
+        description: "Invest in developing alternative trade routes to reduce dependency.",
+        wisdom: "Strategic Options",
+        peace: 55,
+        justice: 60,
+        trust: 35
+      }
+    ]
+  },
+  {
+    title: "Refugee Crisis Management",
+    severity: "high",
+    description: "War in a neighboring country has sent 2 million refugees across the border, straining resources and causing social tensions.",
+    party1: {
+      name: "Host Nation Citizens",
+      position: "Our economy cannot sustain this influx. Our own citizens need jobs and services first.",
+      concerns: "• Unemployment rising\n• Healthcare system overwhelmed\n• Security concerns"
+    },
+    party2: {
+      name: "Refugee Representatives",
+      position: "We fled death and destruction. International law guarantees our right to asylum and humane treatment.",
+      concerns: "• Basic survival needs\n• Family separation\n• Children's education"
+    },
+    principles: [
+      "❤️ Compassion for the vulnerable",
+      "⚖ Balance mercy with capacity",
+      "🤲 Shared human dignity",
+      "🌍 Global responsibility"
+    ],
+    options: [
+      {
+        title: "Integration Program",
+        description: "Phased integration with international support, job training, and community preparation.",
+        wisdom: "Managed Compassion",
+        peace: 78,
+        justice: 82,
+        trust: 75
+      },
+      {
+        title: "Safe Zones Creation",
+        description: "Establish UN-protected areas in home country for safe return with international guarantees.",
+        wisdom: "Source Solution",
+        peace: 65,
+        justice: 70,
+        trust: 55
+      },
+      {
+        title: "Burden Sharing Compact",
+        description: "Regional agreement to distribute refugees across multiple nations with financial support.",
+        wisdom: "Collective Response",
+        peace: 73,
+        justice: 76,
+        trust: 68
+      },
+      {
+        title: "Temporary Protection",
+        description: "Time-limited shelter with focus on eventual return when conditions improve.",
+        wisdom: "Transitional Care",
+        peace: 60,
+        justice: 58,
+        trust: 48
+      }
+    ]
+  },
+  {
+    title: "Maritime Territory Dispute",
+    severity: "medium",
+    description: "Two nations claim the same island chain, which contains valuable fishing grounds and potential oil reserves.",
+    party1: {
+      name: "Historical Claimant",
+      position: "Our ancestors fished these waters for 500 years. Historical maps prove our sovereignty.",
+      concerns: "• Traditional fishing rights\n• Cultural heritage sites\n• National pride"
+    },
+    party2: {
+      name: "Legal Claimant",
+      position: "Modern international law and proximity give us rightful claim to these waters.",
+      concerns: "• Economic development\n• Energy security\n• Legal precedent"
+    },
+    principles: [
+      "📜 Honor both history and law",
+      "🤝 Shared seas, shared prosperity",
+      "⚖ Creative solutions over conflict",
+      "🐟 Preserve for future generations"
+    ],
+    options: [
+      {
+        title: "Joint Development Zone",
+        description: "Share resources equally while postponing sovereignty decisions for future generations.",
+        wisdom: "Pragmatic Cooperation",
+        peace: 85,
+        justice: 75,
+        trust: 80
+      },
+      {
+        title: "Functional Division",
+        description: "Split different rights: fishing to one nation, mineral rights to another, with compensation.",
+        wisdom: "Creative Compromise",
+        peace: 72,
+        justice: 73,
+        trust: 65
+      },
+      {
+        title: "International Court",
+        description: "Submit to binding international arbitration based on law of the sea.",
+        wisdom: "Legal Resolution",
+        peace: 58,
+        justice: 80,
+        trust: 50
+      },
+      {
+        title: "Conservation Zone",
+        description: "Declare the area an international marine preserve with limited access for both.",
+        wisdom: "Higher Purpose",
+        peace: 70,
+        justice: 68,
+        trust: 72
+      }
+    ]
+  },
+  {
+    title: "Religious Sites Access",
+    severity: "high",
+    description: "A holy site sacred to three religions sits in disputed territory, with each group claiming exclusive rights.",
+    party1: {
+      name: "Current Controllers",
+      position: "We've maintained and protected this site for generations. Changing control risks desecration.",
+      concerns: "• Sacred preservation\n• Security management\n• Religious practices"
+    },
+    party2: {
+      name: "Access Seekers Coalition",
+      position: "This site is sacred to millions who are denied access. Religious freedom demands equal rights.",
+      concerns: "• Pilgrimage rights\n• Religious freedom\n• Historical claims"
+    },
+    principles: [
+      "🕊️ Sacred spaces transcend politics",
+      "🙏 Respect all faith traditions",
+      "⚖ Equal dignity for believers",
+      "💫 Unity through spirituality"
+    ],
+    options: [
+      {
+        title: "Interfaith Administration",
+        description: "Create a rotating interfaith council with equal representation and shared responsibility.",
+        wisdom: "Shared Sanctity",
+        peace: 83,
+        justice: 88,
+        trust: 78
+      },
+      {
+        title: "Scheduled Access System",
+        description: "Designated times for each group with respect for others' practices and holy days.",
+        wisdom: "Organized Harmony",
+        peace: 74,
+        justice: 72,
+        trust: 66
+      },
+      {
+        title: "International Protection",
+        description: "UNESCO world heritage status with neutral international administration.",
+        wisdom: "Global Heritage",
+        peace: 68,
+        justice: 75,
+        trust: 58
+      },
+      {
+        title: "Virtual Access Technology",
+        description: "Use technology for remote pilgrimage while limiting physical access to prevent conflict.",
+        wisdom: "Modern Solutions",
+        peace: 55,
+        justice: 48,
+        trust: 40
+      }
+    ]
+  },
+  {
+    title: "Climate Refugee Movement",
+    severity: "medium",
+    description: "Rising sea levels have displaced an island nation's population, seeking resettlement rights in larger countries.",
+    party1: {
+      name: "Sinking Island Nation",
+      position: "We're losing our homeland through no fault of our own. The world owes us a new home.",
+      concerns: "• Entire nation underwater by 2050\n• Cultural preservation\n• Sovereignty maintenance"
+    },
+    party2: {
+      name: "Potential Host Nations",
+      position: "We sympathize but cannot absorb entire populations. This requires global cooperation.",
+      concerns: "• Integration capacity\n• Resource limitations\n• Domestic politics"
+    },
+    principles: [
+      "🌍 Global problems need global solutions",
+      "⚖ Climate justice for the vulnerable",
+      "🤝 Shared responsibility for shared planet",
+      "🏝️ Preserve cultures, not just lives"
+    ],
+    options: [
+      {
+        title: "Sovereign Territory Grant",
+        description: "Allocate territory for a new sovereign state with international support for development.",
+        wisdom: "Bold Justice",
+        peace: 80,
+        justice: 92,
+        trust: 85
+      },
+      {
+        title: "Distributed Integration",
+        description: "Multiple nations accept populations while maintaining cultural centers for identity.",
+        wisdom: "Shared Burden",
+        peace: 72,
+        justice: 68,
+        trust: 64
+      },
+      {
+        title: "Floating Nation Technology",
+        description: "Invest in floating city technology to maintain territory and sovereignty.",
+        wisdom: "Innovation Path",
+        peace: 65,
+        justice: 70,
+        trust: 60
+      },
+      {
+        title: "Climate Reparations",
+        description: "Major emitters provide land and resources as climate justice compensation.",
+        wisdom: "Accountability",
+        peace: 58,
+        justice: 85,
+        trust: 45
+      }
+    ]
+  },
+  {
+    title: "Cross-Border Pandemic Response",
+    severity: "high",
+    description: "A new disease outbreak requires coordinated response, but nations disagree on border controls versus cooperation.",
+    party1: {
+      name: "Border Control Advocates",
+      position: "Closing borders is the only way to protect our citizens from this threat.",
+      concerns: "• Public health safety\n• Healthcare capacity\n• Economic protection"
+    },
+    party2: {
+      name: "Cooperation Coalition",
+      position: "Viruses don't respect borders. Only coordinated response can end this crisis.",
+      concerns: "• Global supply chains\n• Vaccine distribution\n• Information sharing"
+    },
+    principles: [
+      "💉 Health is a human right",
+      "🤝 No one is safe until all are safe",
+      "⚖ Balance safety with freedom",
+      "🌍 Interconnected world, interconnected solutions"
+    ],
+    options: [
+      {
+        title: "Coordinated Response Protocol",
+        description: "Standardized measures with shared resources and real-time data exchange.",
+        wisdom: "United Front",
+        peace: 86,
+        justice: 84,
+        trust: 88
+      },
+      {
+        title: "Bubble Zones",
+        description: "Create regional safe zones with controlled movement between verified areas.",
+        wisdom: "Managed Risk",
+        peace: 73,
+        justice: 70,
+        trust: 68
+      },
+      {
+        title: "Technology First",
+        description: "Invest in testing and tracking technology to allow safer movement.",
+        wisdom: "Smart Solutions",
+        peace: 70,
+        justice: 65,
+        trust: 62
+      },
+      {
+        title: "National Priority",
+        description: "Each nation focuses on internal control first, then gradual opening.",
+        wisdom: "Staged Approach",
+        peace: 55,
+        justice: 52,
+        trust: 42
+      }
+    ]
+  }
+];
+
+let currentConflict = 0;
+let wisdomScore = 45;
+let wisdomLevel = 3;
+let stats = {
+  conflicts: 7,
+  lives: 2.3,
+  treaties: 4,
+  peace: 78
+};
+let resolvedConflicts = [];
+
+function loadConflict() {
+  const conflict = conflicts[currentConflict];
+  
+  document.getElementById('conflictTitle').textContent = conflict.title;
+  document.getElementById('conflictDescription').textContent = conflict.description;
+  
+  // Set severity badge
+  const badge = document.getElementById('severityBadge');
+  badge.textContent = conflict.severity.toUpperCase();
+  badge.className = 'severity-badge severity-' + conflict.severity;
+  
+  // Load parties
+  document.getElementById('party1Name').textContent = conflict.party1.name;
+  document.getElementById('party1Position').textContent = conflict.party1.position;
+  document.getElementById('party1Concerns').innerHTML = '<strong>Key Concerns:</strong><br>' + conflict.party1.concerns;
+  
+  document.getElementById('party2Name').textContent = conflict.party2.name;
+  document.getElementById('party2Position').textContent = conflict.party2.position;
+  document.getElementById('party2Concerns').innerHTML = '<strong>Key Concerns:</strong><br>' + conflict.party2.concerns;
+  
+  // Load principles
+  const principlesList = document.getElementById('principlesList');
+  principlesList.innerHTML = conflict.principles.map(p => 
+    `<li class="principle-item">
+      <span class="principle-icon">${p.substring(0, 2)}</span>
+      <span>${p.substring(2)}</span>
+    </li>`
+  ).join('');
+  
+  // Load mediation options
+  const optionsContainer = document.getElementById('mediationOptions');
+  optionsContainer.innerHTML = conflict.options.map((option, index) => 
+    `<button class="option-btn" onclick="selectOption(${index})">
+      <div class="option-title">${option.title}</div>
+      <div class="option-description">${option.description}</div>
+      <span class="wisdom-tag">${option.wisdom}</span>
+    </button>`
+  ).join('');
+  
+  document.getElementById('outcomePanel').style.display = 'none';
+}
+
+function selectOption(optionIndex) {
+  const conflict = conflicts[currentConflict];
+  const option = conflict.options[optionIndex];
+  
+  // Update wisdom score
+  const scoreIncrease = Math.floor((option.peace + option.justice + option.trust) / 30);
+  wisdomScore = Math.min(100, wisdomScore + scoreIncrease);
+  wisdomLevel = Math.floor(wisdomScore / 20) + 1;
+  
+  document.getElementById('wisdomFill').style.width = wisdomScore + '%';
+  document.getElementById('wisdomLevel').textContent = wisdomLevel;
+  
+  // Show outcome
+  const outcomePanel = document.getElementById('outcomePanel');
+  outcomePanel.style.display = 'block';
+  
+  let outcomeText = '';
+  if (option.peace >= 80) {
+    outcomeText = "Excellent mediation! Your Solomon-like wisdom has brought lasting peace to this conflict. Both parties feel heard and respected.";
+  } else if (option.peace >= 65) {
+    outcomeText = "Good progress. Your solution addresses key concerns, though some tensions remain. Continue building trust.";
+  } else {
+    outcomeText = "A temporary solution, but underlying issues persist. Sometimes the first step toward peace is simply stopping the conflict.";
+  }
+  
+  document.getElementById('outcomeText').textContent = outcomeText;
+  document.getElementById('peaceScore').textContent = '+' + option.peace;
+  document.getElementById('justiceScore').textContent = '+' + option.justice;
+  document.getElementById('trustScore').textContent = '+' + option.trust;
+  
+  // Update global stats
+  stats.conflicts++;
+  stats.lives += (option.peace / 100) * 0.8;
+  if (option.trust >= 75) stats.treaties++;
+  stats.peace = Math.floor((stats.peace + option.peace) / 2);
+  
+  updateStats();
+  
+  // Track resolved conflict
+  if (!resolvedConflicts.includes(conflict.title)) {
+    resolvedConflicts.push(conflict.title);
+    updateProgress();
+  }
+  
+  // Load next conflict after delay
+  setTimeout(() => {
+    currentConflict = (currentConflict + 1) % conflicts.length;
+    loadConflict();
+  }, 4000);
+}
+
+function updateStats() {
+  document.getElementById('conflictsResolved').textContent = stats.conflicts;
+  document.getElementById('livesImpacted').textContent = stats.lives.toFixed(1) + 'M';
+  document.getElementById('treatiesSigned').textContent = stats.treaties;
+  document.getElementById('peaceIndex').textContent = stats.peace + '%';
+}
+
+function updateProgress() {
+  const progressItems = document.getElementById('progressItems');
+  progressItems.innerHTML = resolvedConflicts.slice(-6).map(title => 
+    `<div class="progress-item completed">${title.split(' ').slice(0, 2).join(' ')}</div>`
+  ).join('');
+}
+
+function openModal() {
+  document.getElementById('aboutModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('aboutModal').style.display = 'none';
+}
+
+// Initialize
+loadConflict();
+
+// Simulate background activity
+setInterval(() => {
+  if (Math.random() > 0.7) {
+    stats.lives += 0.1;
+    updateStats();
+  }
+}, 8000);
+</script>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./service-worker.js');}</script>
+</body>
+</html>
